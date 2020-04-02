@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
   
-  <!--<link rel="stylesheet" href="/css/style.css?v=1585819440168">-->
+  <!--<link rel="stylesheet" href="/css/style.css?v=1585828789443">-->
 
    
     <style>
@@ -55,7 +55,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>1</div>
+        <div><span>文章</span>2</div>
         <div><span>标签</span>0</div>
         <div><span>分类</span>0</div>
     </div>
@@ -132,6 +132,62 @@
         <section class="nexmoe-posts">
     
     <div class="nexmoe-post">
+        <a href="/2020/04/02/Linux%E6%8C%87%E4%BB%A4%E5%AD%A6%E4%B9%A0/">
+            
+                <div class="nexmoe-post-cover mdui-ripple" style="padding-bottom: 66.66666666666666%;"> 
+                    <img data-src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" data-sizes="auto" alt="Linux指令学习" class="lazyload">
+                    <h1>Linux指令学习</h1>
+                </div>
+            
+        </a>
+
+        <div class="nexmoe-post-meta">
+            <a><i class="nexmoefont icon-calendar-fill"></i>2020年04月02日</a>
+            <a><i class="nexmoefont icon-areachart"></i>370 字</a>
+            <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+        </div>
+
+        <article>
+            
+                <h1 id="Linux指令的学习"><a href="#Linux指令的学习" class="headerlink" title="Linux指令的学习"></a>Linux指令的学习</h1><h3 id="目录控制"><a href="#目录控制" class="headerlink" title="目录控制"></a>目录控制</h3><ol>
+<li>cd     &emsp;    xx    &emsp;&emsp;            —切换目录</li>
+<li>cd    &emsp;    ..    &emsp;&emsp;                —返回上一级目录</li>
+<li>cd    &emsp;    ~    &emsp;&emsp;            —代表HOME目录</li>
+<li>cd    &emsp;    -    &emsp;&emsp;            —代表前一目录</li>
+<li>mkdir    &emsp;    &emsp;    &emsp;    目录名    &emsp;&emsp;        —创建目录</li>
+<li>touch    &emsp;    文件名.格式    &emsp;&emsp;    —创建文件，后面得带文件格式</li>
+<li>touch    &emsp;    目录/文件名.格式    &emsp;&emsp;        —在指定目录下创建文件</li>
+<li>rm -f        &emsp;    文件名    &emsp;&emsp;        —删除文件</li>
+<li>rm -rf     &emsp;    文件夹名    &emsp;&emsp;    —删除文件或者文件夹(强制)</li>
+</ol>
+<hr>
+<h3 id="gcc编译C语言文件"><a href="#gcc编译C语言文件" class="headerlink" title="gcc编译C语言文件"></a>gcc编译C语言文件</h3><ol>
+<li><p>gcc    &emsp;    hello.cpp    &emsp;&emsp;        —默认产生一个a.out文件</p>
+</li>
+<li><p>gcc    &emsp;    -o    &ensp; Hello &ensp; hello.cpp    &emsp;&emsp;     —产生一个hello可执行文件<br> PS:↓<br> <u><strong>(hello.cpp是要编译的文件，Hello是生成编译后文件的名字)</strong></u></p>
+</li>
+<li><p>gcc    &emsp;    hello.c    &ensp; -o     &ensp;    myhello    &emsp;&emsp;        —产生一个myhello可执行文件     PS:↓<br> <u><strong>(同样的道理,myhello就是生成编译后文件的名字)</strong></u></p>
+</li>
+<li><p>运行gcc编译好的文件—-以书面编译好的Hello文件为例<br><br> PS↓:<u><strong>输入            ./Hello        这个Hello就是文件编译后生成的文件的名字</strong></u></p>
+</li>
+<li><p>sudo su                        —开启超级用户</p>
+</li>
+<li><p>su    用户名                    —变为普通用户</p>
+</li>
+</ol>
+<hr>
+<h3 id="Vim编辑模式："><a href="#Vim编辑模式：" class="headerlink" title="Vim编辑模式："></a>Vim编辑模式：</h3><ol>
+<li>vim        文件名.格式            —创建文件，后面得带文件格式</li>
+<li>在vim中，要退出是这样操作：</li>
+<li>在插入模式中，按Esc，输入 —-:    &emsp;    q    &emsp;    —-不保存退出</li>
+<li>在插入模式中，按Esc，输入 —-:    &emsp;    wq    &emsp;    —-保存退出</li>
+</ol>
+
+            
+        </article>
+    </div>
+    
+    <div class="nexmoe-post">
         <a href="/2020/04/01/hello-world/">
             
                 <div class="nexmoe-post-cover mdui-ripple" style="padding-bottom: 66.66666666666666%;"> 
@@ -173,7 +229,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<!--<script src="/js/app.js?v=1585819440170"></script>-->
+<!--<script src="/js/app.js?v=1585828789445"></script>-->
 
 
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
