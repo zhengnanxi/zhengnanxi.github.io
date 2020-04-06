@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>文章归档：2020/4 - Sakura</title>
+  <title>操作系统学习-概述 - Sakura</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -12,16 +12,20 @@
   
 
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sakura">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="这是我个人在学习操作系统的笔记。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习-概述">
+<meta property="og:url" content="http://yoursite.com/2020/04/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="这是我个人在学习操作系统的笔记。。。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-06T05:20:36.274Z">
+<meta property="article:modified_time" content="2020-04-06T06:35:47.519Z">
 <meta property="article:author" content="Rain_Saber">
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
   
-  <!--<link rel="stylesheet" href="/css/style.css?v=1586163732064">-->
+  <!--<link rel="stylesheet" href="/css/style.css?v=1586163732053">-->
 
    
     <style>
@@ -160,66 +164,89 @@
   </div>
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
-        
-<section class="nexmoe-archives">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 47.07692307692308%;"> 
+          <img data-src="https://s1.ax1x.com/2020/04/05/GrP8C6.jpg" data-sizes="auto" alt="操作系统学习-概述" class="lazyload">
+          <h1>操作系统学习-概述</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年04月06日</a>
+    <a><i class="nexmoefont icon-areachart"></i>366 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
+</div>
 
-    <article>
-        
+  <div class="nexmoe-post-right">
+    
+  </div>
 
-        
-    </article>
+  <article>
+    <p>这是我个人在学习操作系统的笔记。。。</p>
+<a id="more"></a>
+<ol>
+<li>BIOS将BootLoader从磁盘的引导区加载到内存中。</li>
+<li>BootLoader将操作系统的代码和数据从硬盘加载到内存中。 跳转到操作系统的起始地址。<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4></li>
+<li>系统调用：应用程序主动向操作系统发出服务请求。</li>
+<li>异常：非法指令或者其他的处理状态（如内存错误）</li>
+<li>中断（来源于外设）：来自不同的硬件设备的计时器和网络的中断。<br>↑三者产生的源头：</li>
+<li>系统调用：应用程序发出请求操作提供服务、</li>
+<li>异常：应用程序意想不到的行为。</li>
+<li>中断：外设。</li>
+</ol>
+<hr>
+<p>中断：异步时间点—-异步：当事件产生时，应用程序不知道什么时候回产生。<br>异常：同步时间点—同步：执行到错误的指令，肯定会产生异常</p>
+<h5 id="系统调用的异步和同步："><a href="#系统调用的异步和同步：" class="headerlink" title="系统调用的异步和同步："></a>系统调用的异步和同步：</h5><ol>
+<li>同步的定义：是指一个进程在执行某个请求的时候，若该请求需要一段时间才能返回信息，那么，这个进程将会一直等待下去，直到收到返回信息才继续执行下去。</li>
+<li>异步是指进程不需要一直等下去，而是继续执行下面的操作，不管其他进程的状态。当有消息返回时系统会通知进程进行处理，这样可以提高执行的效率。</li>
+</ol>
+
+  </article>
+
+  <div class="nexmoe-post-meta">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    
+      
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Rain_Saber<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/04/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%BF%B0/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;06&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%BF%B0&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;06&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%BF%B0&#x2F;</a><br>
+    
+      <strong>版权声明：</strong> ©2020 Rain_Saber 
+    
+  </div>
+
+
+    
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
 </section>
-
-<style>
-.nexmoe-archives article > *:first-child {
-    margin-top: 0;
-}
-.nexmoe-archives article > *:last-child {
-    margin-bottom: 0;
-}
-.nexmoe-archives ul {
-    list-style: none;
-    padding-left: 0!important;
-}
-.nexmoe-archives li {
-    position: relative;
-    padding: 10px 0;
-}
-.nexmoe-archives li::before {
-    content: "";
-    width: 14px;
-    height: 14px;
-    background: #ff4e6a;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -2px;
-    margin-right: 11px;
-    border-radius: 100%;
-    border: 3px solid #fff;
-    z-index: 100;
-    position: relative;
-}
-.nexmoe-archives li::after {
-    content: "";
-    height: 100%;
-    width: 2px;
-    background: rgba(255, 78, 106, 0.2);
-    position: absolute;
-    left: 6px;
-    top: 20px;
-}
-.nexmoe-archives li:last-child:after {
-    display: none;
-}
-.nexmoe-archives span {
-    margin-right: 15px;
-}
-</style>
+  </div>
+</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<!--<script src="/js/app.js?v=1586163732065"></script>-->
+<!--<script src="/js/app.js?v=1586163732054"></script>-->
 
 
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
