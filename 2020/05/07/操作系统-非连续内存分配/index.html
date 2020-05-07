@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>操作系统-死锁 - Sakura</title>
+  <title>操作系统-非连续内存分配 - Sakura</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -14,18 +14,25 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
   <meta name="description" content="这是我个人在学习操作系统的笔记。。。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统-死锁">
-<meta property="og:url" content="http://yoursite.com/2020/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%AD%BB%E9%94%81/index.html">
+<meta property="og:title" content="操作系统-非连续内存分配">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/index.html">
 <meta property="og:site_name" content="Sakura">
 <meta property="og:description" content="这是我个人在学习操作系统的笔记。。。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-09T09:31:15.003Z">
-<meta property="article:modified_time" content="2020-04-10T02:40:38.561Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3U0S.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3Nm8.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3aTg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3Glt.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3YOf.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/07/YZ3J6P.jpg">
+<meta property="article:published_time" content="2020-05-07T02:06:39.612Z">
+<meta property="article:modified_time" content="2020-05-07T02:41:01.714Z">
 <meta property="article:author" content="Rain_Saber">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/07/YZ3U0S.jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
   
-  <!--<link rel="stylesheet" href="/css/style.css?v=1588829852981">-->
+  <!--<link rel="stylesheet" href="/css/style.css?v=1588829852977">-->
 
    
     <style>
@@ -167,15 +174,15 @@
         <div class="nexmoe-post">
   
       <div class="nexmoe-post-cover" style="padding-bottom: 47.07692307692308%;"> 
-          <img data-src="https://s1.ax1x.com/2020/04/10/GIj9SJ.jpg" data-sizes="auto" alt="操作系统-死锁" class="lazyload">
-          <h1>操作系统-死锁</h1>
+          <img data-src="https://s1.ax1x.com/2020/05/07/YZJXAU.jpg" data-sizes="auto" alt="操作系统-非连续内存分配" class="lazyload">
+          <h1>操作系统-非连续内存分配</h1>
       </div>
   
   
   <div class="nexmoe-post-meta" style="margin:10px 0!important;">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2020年04月09日</a>
-    <a><i class="nexmoefont icon-areachart"></i>1.6k 字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 6 分钟</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年05月07日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 4 分钟</a>
 </div>
 
   <div class="nexmoe-post-right">
@@ -185,88 +192,69 @@
   <article>
     <p>这是我个人在学习操作系统的笔记。。。</p>
 <a id="more"></a>
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h4 id="定义：一组竞争系统资源或相互通信的进程，相互的“永久阻塞”。若无外力作用，这组进程将永远不能继续执行。"><a href="#定义：一组竞争系统资源或相互通信的进程，相互的“永久阻塞”。若无外力作用，这组进程将永远不能继续执行。" class="headerlink" title="定义：一组竞争系统资源或相互通信的进程，相互的“永久阻塞”。若无外力作用，这组进程将永远不能继续执行。"></a>定义：一组竞争系统资源或相互通信的进程，相互的“永久阻塞”。若无外力作用，这组进程将永远不能继续执行。</h4><h2 id="PS：简单的说，一组阻塞的进程持有一种资源，等待获取另一个进程所占有的一个资源。"><a href="#PS：简单的说，一组阻塞的进程持有一种资源，等待获取另一个进程所占有的一个资源。" class="headerlink" title="PS：简单的说，一组阻塞的进程持有一种资源，等待获取另一个进程所占有的一个资源。"></a>PS：简单的说，一组阻塞的进程持有一种资源，等待获取另一个进程所占有的一个资源。</h2><h4 id="可重复使用的资源"><a href="#可重复使用的资源" class="headerlink" title="可重复使用的资源"></a>可重复使用的资源</h4><ul>
-<li>在一个时间内，只能一个进程使用且不能被删除</li>
-<li>进程获得资源，在使用一段时间后就释放，释放的资源给其他进程重用</li>
-<li>资料类型有：I/O通道，处理器，文件，数据结构，设备等</li>
-<li>如果每个进程拥有一个资源，并请求其它资源，死锁就可能发生</li>
-</ul>
-<h4 id="使用资源"><a href="#使用资源" class="headerlink" title="使用资源"></a>使用资源</h4><ul>
-<li>创建和销毁</li>
-<li>在I/O缓冲区的中断，信号，消息，信息</li>
-<li>如果接收消息阻塞，可能会发生死锁</li>
-<li>可能少见的组合时间会引起死锁</li>
-</ul>
-<hr>
-<h4 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h4><p>如果资源分配图不包括循环 ==&gt;没有死锁<br>如果资源分配图包括循环 ==&gt;</p>
+<h2 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h2><p>每个操作系统都有自己的方法来保存页表。<br>绝大多数都为每个进程分配一个页表。页表的指针与其他寄存器的值一起存入进程控制块</p>
 <ol>
-<li>如果每个资源类只有一个实例，那么死锁</li>
-<li>如果每个资源类有几个实例，可能死锁<br>死锁可能出现，如果下面四个条件同时成立</li>
+<li>转换表缓冲区(TLB)–快表<br>快表只存部分表，若发现匹配的页号，则将块号取出，不通过页表，直接与页内位移拼接，形成物理地址。<br>若没有匹配的页号，按普通访问页表方式进行。再把该页号与块号对应关系送入快表保存。若快表满，则删除其中一个表项。</li>
+<li>快速寄存器价格昂贵，完全由它来组成页表的方案不可取</li>
+<li>分页保护<br>分页环境下，内存保护通过与每个帧相关联的保护位来实现，保护位在页表中保存</li>
+<li>分页的优先之一<br>可以共享公共代码，其特点是只读，通过正确的代买，及操作系统强制实现</li>
 </ol>
-<ul>
-<li>互斥：在一个时间内，只能有一个进程使用资源</li>
-<li>持有并等待：进程保持至少一个资源正在等待获取其他进程持有的额外资源</li>
-<li>无抢占：一个资源只能被进程资源释放，进程已经完成了它的任务之后</li>
-<li>循环等待：存在等待进程集合{P0，P1…..Pn},P0正在等待P1所占用资源，以此类推，Pn正在等待P0所占用的资源<br>PS：上面四个条件，是死锁的必要条件。就是说，死锁出现后，会有这四个条件。同时，这四个条件出现，不一定是死锁。</li>
-</ul>
 <hr>
-<h4 id="死锁处理的办法"><a href="#死锁处理的办法" class="headerlink" title="死锁处理的办法"></a>死锁处理的办法</h4><ul>
-<li>确保系统永远不会进入死锁状态</li>
-<li>运行系统进入死锁状态，然后恢复</li>
-<li>忽略这个问题，假装系统中没有发生过死锁；目前大多数系统采用这种方法</li>
-</ul>
-<hr>
-<h4 id="死锁的预防和避免"><a href="#死锁的预防和避免" class="headerlink" title="死锁的预防和避免"></a>死锁的预防和避免</h4><ol>
-<li>限制申请方式</li>
-</ol>
+<h3 id="1-非连续内存分配：分段"><a href="#1-非连续内存分配：分段" class="headerlink" title="1.非连续内存分配：分段"></a>1.非连续内存分配：分段</h3><p>1.1非连续分配内存的原因</p>
 <ul>
-<li>互斥 — 共享资源部署必须的，必须占用非共享资源。—–&gt;互斥变成不互斥的</li>
-<li>占用并等待 — 必须保证当一个进程请求的资源，它不持有任何其他资源<blockquote>
-<p>需要进程请求并分配其所有资源，它开始执行前或运行进程请求资源时，仅当进程没有资源<br>导致资源利用率，可能发生饥饿</p>
+<li>连续内存分配的缺点<blockquote>
+<p>分配给一个程序的物理内存是连续的<br>内存利用率低<br>有外碎片、内碎片的问题</p>
 </blockquote>
 </li>
-<li>无抢占 —<blockquote>
-<p>如果进程占有某些资源，并请求其它不能被立即分配的资源，则释放当前正占有的资源<br>被抢占资源添加到资源列表中<br>只有当它能够获得旧的资源以及它请求新的资源，进程可以获得执行</p>
-</blockquote>
-</li>
-<li>循环等待 — 对所有资源类型进行排序，并要求每个进程按照资源的顺序进行申请</li>
 </ul>
-<ol start="2">
-<li>需要系统具有一些额外的先炎信息提供</li>
-</ol>
+<p>1.2非连续内存分配</p>
 <ul>
-<li>最简单和最有效的模式，是要求每个进程声明它可能需要的每个类型资源的最大数目</li>
-<li>资源的分配状态是通过限定提供和分配的紫竹院数量，和进程的最大需求</li>
-<li>死锁避免算法动态检查的资源分配状态，以确保永远不会有一个环形等待状态</li>
-<li>当一个进程请求可用资源，系统必须判断；立即分配是否能使系统处于安全状态</li>
-<li>系统处于安全状态：针对所有进程，存在安全序列</li>
-<li>序列&lt;P1,P2….Pn&gt;是安全的：针对每个Pi,Pi要求的资源能够有当前可用的资源 + 所有Pj持有的资源来满足，其中中J&lt;i<blockquote>
-<p>如果Pi资源的需求不是立即可用，那么Pi可以等到所有Pj完成<br>当Pi完成后，Pi+1可以得到所需要的资源，执行，返回所分配的资源，并终止<br>同样的，Pi+2，Pi+3和Pn都能获得其所需的资源<br>PS：如果系统处于安全状态 ==&gt;无死锁<br>如果系统处于不安全状态 ==&gt;可能死锁<br>避免死锁：确保系统永远不会进入不安全状态</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<p>避免死锁-银行家算法</p>
-<ol>
-<li>可利用资源向量Available：这是一个含有m个元素的数组，其中的每一个元素代表一类可利用的资源数目，其初始值是系统中所配置的该类全部可用资源的数目，其数值随该类资源的分配和回收而动态地改变。如果Available[j]=K，则表示系统中现有Rj类资源K个。</li>
-<li>最大需求矩阵Max：这是一个n×m的矩阵，它定义了系统中n个进程中的每一个进程对m类资源的最大需求。如果Max[i,j]=K，则表示进程i需要Rj类资源的最大数目为K。</li>
-<li>分配矩阵Allocation：这也是一个n×m的矩阵，它定义了系统中每一类资源当前已分配给每一进程的资源数。如果Allocation[i,j]=K，则表示进程i当前已分得Rj类资源的数目为K。</li>
-<li>需求矩阵Need：这也是一个n×m的矩阵，用以表示每一个进程尚需的各类资源数。如果Need[i,j]=K，则表示进程i还需要R j类资源K个，方能完成其任务。</li>
-<li>上述三个矩阵间存在下述关系：Need[i, j] = Max[i, j] - Allocation[i, j]</li>
-</ol>
-<p>–<br>死锁的恢复</p>
-<ul>
-<li>终止所有的死锁进程</li>
-<li>在一个时间内终止一个进程直到死锁消除</li>
-<li>终止进程的顺序应该是：<blockquote>
-<p>进程的优先级<br>进程运行了多久，以及需要多少时间才能完成<br>进程占用的资源<br>进程完成需要的资源<br>多少进程需要被终止<br>进程是交互还是批处理</p>
-</blockquote>
-</li>
-</ul>
-<p>2.通过资源抢占</p>
+<li><p>优点</p>
 <blockquote>
-<p>选择一个受害者 - 最小成本<br>回滚- 返回到一些安全状态，重启进程到安全状态<br>饥饿 - 同一进程可能一直被选作受害者，包括回滚的数量</p>
+<p>一个程序的物理地址空间是非连续的<br>更好的内存利用和管理<br>允许共享代码与数据(共享库等)<br>更支持动态加载和动态链接</p>
 </blockquote>
+</li>
+<li><p>缺点</p>
+<blockquote>
+<p>建立虚拟地址和物理地址之间的转换<br>软件方案(开销大)<br>硬件方案<br>两种硬件方案<br>分段<br>分页</p>
+</blockquote>
+</li>
+</ul>
+<p>2.分段</p>
+<ul>
+<li><p>程序的分段地址空间(内存地址空间如何去寻址)<br>逻辑地址空间是连续的，物理地址是离散的。中间需要有一种映射机制，让它们建立一种相应的关系。<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3U0S.jpg" alt="" class="lazyload"></p>
+</li>
+<li><p>分段寻址方案(硬件手段)<br>段访问机制：一个段指的是一个内存块，是一个逻辑地址空间<br>程序访问内存地址需要：一个二维的二元组(s段号，addr端内偏移)<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3Nm8.jpg" alt="" class="lazyload"></p>
+</li>
+<li><p>段访问机制的硬件实现方案<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3aTg.png" alt="" class="lazyload"></p>
+</li>
+</ul>
+<hr>
+<h3 id="2-非连续内存分配：分页"><a href="#2-非连续内存分配：分页" class="headerlink" title="2.非连续内存分配：分页"></a>2.非连续内存分配：分页</h3><ol>
+<li>页号作为页表的索引<br>页表包含每页所在物理内存的基地址</li>
+</ol>
+<ul>
+<li>划分物理内存至固定大小的-帧(物理)<br>大小是2的幂，如512,4096,8192</li>
+<li>划分逻辑地址空间至相同的-页(逻辑)<br>大小是2的幂，如512,4096,8192</li>
+<li>建立方案：逻辑转换为物理地址<br>页表、MMU/TLB</li>
+</ul>
+<p>2.1 物理地址部分：页帧<br>页帧：物理内存的布局和组织方式<br>帧：物理内存被分割为大小相等的帧<br>一个内存物理地址是一个二元组(f,o)表示</p>
+<ul>
+<li>f –帧号(F位，共有2^F个帧)</li>
+<li>o –帧内位移(S位,每帧有2^S个字节)<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3Glt.jpg" alt="" class="lazyload"></li>
+</ul>
+<ul>
+<li>通过一个实例来加深对这个概念的理解<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3YOf.jpg" alt="" class="lazyload"></li>
+</ul>
+<blockquote>
+<p>首先有一个物理内存地址(3，6)，帧号是3，它是7位的，说明一共能有2^7个帧，这个帧是其中的第3个；<br>帧内偏移是6，他是9位的，说明一个帧里可以有2^9个字节，当前地址是在这个帧里的第6个字节；<br>因此，它的物理地址是3 * 2^9 + 6。<br>通过这个例子，可以发现 页帧号 的作用就是通过一个二元组能够找到一个物理地址。</p>
+</blockquote>
+<p>2.2 逻辑地址部分：页<br>页：一个程序的逻辑地址空间被划分为大小相等的页</p>
+<ul>
+<li>(逻辑地址)页内偏移的大小 = (物理地址的)帧内偏移的大小</li>
+<li>(逻辑地址)页号大小可能不等于(物理地址的)帧号大小</li>
+<li>一个逻辑地址是一个二元组(p,o)<br>p –页号(P位,2^p个页)<br>o –页内偏移(S位,每页有2^s字节)<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/07/YZ3J6P.jpg" alt="" class="lazyload"></li>
+</ul>
 
   </article>
 
@@ -282,7 +270,7 @@
       
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>Rain_Saber<br>
-    <strong>本文链接：</strong><a href="http://yoursite.com/2020/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%AD%BB%E9%94%81/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;09&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%AD%BB%E9%94%81&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;09&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%AD%BB%E9%94%81&#x2F;</a><br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/05/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;07&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;07&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D&#x2F;</a><br>
     
       <strong>版权声明：</strong> ©2020 Rain_Saber 
     
@@ -312,7 +300,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<!--<script src="/js/app.js?v=1588829852983"></script>-->
+<!--<script src="/js/app.js?v=1588829852980"></script>-->
 
 
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
