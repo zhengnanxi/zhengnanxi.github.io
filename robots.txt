@@ -1,0 +1,2 @@
+Sitemap: https://zhengnanxi.github.io/sitemap.xml
+Sitemap: https://zhengnanxi.github.io/baidusitemap.xml
