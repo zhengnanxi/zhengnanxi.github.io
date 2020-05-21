@@ -4,7 +4,7 @@
 
 <head>
   
-  <title>分类：JavaScript - Sakura</title>
+  <title>Linux实验 - Sakura</title>
   <meta charset="UTF-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -12,16 +12,24 @@
   
 
   <link rel="shortcut icon" href="/favicon.ico" type="image/png" />
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sakura">
-<meta property="og:url" content="http://yoursite.com/categories/JavaScript/index.html">
+  <meta name="description" content="这是我个人上课学习,自己所编写的实验教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux实验">
+<meta property="og:url" content="http://yoursite.com/2020/05/21/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%AE%9E%E9%AA%8C-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="这是我个人上课学习,自己所编写的实验教程">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/21/YbKzVg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/21/YbKzVg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/21/YbKzVg.png">
+<meta property="article:published_time" content="2020-05-21T07:04:51.467Z">
+<meta property="article:modified_time" content="2020-05-21T08:11:56.950Z">
 <meta property="article:author" content="Rain_Saber">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/21/YbKzVg.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/gh/nexmoe/nexmoe.github.io@latest/css/style.css,npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/nexmoe/nexmoe.github.io@latest/lib/mdui_043tiny/css/mdui.css,gh/nexmoe/nexmoe.github.io@latest/lib/iconfont/iconfont.css" crossorigin>
   
-  <!--<link rel="stylesheet" href="/css/style.css?v=1590048773492">-->
+  <!--<link rel="stylesheet" href="/css/style.css?v=1590048773458">-->
 
    
     <style>
@@ -160,73 +168,122 @@
   </div>
   <div id="nexmoe-content">
     <div class="nexmoe-primary">
-        
-<section class="nexmoe-archives">
+        <div class="nexmoe-post">
+  
+      <div class="nexmoe-post-cover" style="padding-bottom: 47.07692307692308%;"> 
+          <img data-src="https://s1.ax1x.com/2020/05/21/Ybu3f1.jpg" data-sizes="auto" alt="Linux实验" class="lazyload">
+          <h1>Linux实验</h1>
+      </div>
+  
+  
+  <div class="nexmoe-post-meta" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年05月21日</a>
+    <a><i class="nexmoefont icon-areachart"></i>569 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 2 分钟</a>
+</div>
 
-    <article>
-        
+  <div class="nexmoe-post-right">
+    
+  </div>
 
-        
-            <h2>2020</h2>
-            <ul>
-            
-                <li><span>04-04</span><a href="/2020/04/04/JavaScript%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/" >javaScrip相关学习</a></li>
-            
-            </ul>
-        
-    </article>
+  <article>
+    <p>这是我个人上课学习,自己所编写的实验教程</p>
+<a id="more"></a>
+<h1 id="1-模块程序"><a href="#1-模块程序" class="headerlink" title="1 模块程序"></a>1 模块程序</h1><h3 id="PS-举个例子–文件名hello-c"><a href="#PS-举个例子–文件名hello-c" class="headerlink" title="PS:举个例子–文件名hello.c"></a>PS:举个例子–文件名hello.c</h3><pre><code class="cpp">#include&lt;linux/module.h&gt;
+#include&lt;linux/kernel.h&gt;
+#include&lt;linux/init.h&gt;
+
+int init_hello_module(void)
+{
+    printk(&quot;Hello! This is a testing module1!\n&quot;);
+    return 0;
+}
+void exit_hello_module(void)
+{
+    printk(&quot;Sorry! The module1 is unloading!\n&quot;);
+}
+module_init(init_hello_module);
+module_exit(exit_hello_module);
+MODULE_LICENSE(&quot;GPL&quot;);</code></pre>
+<p>个人建议，经过我多次通过make运行。int init_hello_module—-你应该按这样格式写<br>int init_XXXX_module—-个人建议而已，不喜勿喷。第二个函数也一样。</p>
+<h2 id="2-编写Makerfile文件、"><a href="#2-编写Makerfile文件、" class="headerlink" title="2 编写Makerfile文件、"></a>2 编写Makerfile文件、</h2><h3 id="用终端新建–指令：vi-Makerfile"><a href="#用终端新建–指令：vi-Makerfile" class="headerlink" title="用终端新建–指令：vi Makerfile"></a>用终端新建–指令：vi Makerfile</h3><p>vi + 文件名</p>
+<pre><code class="cpp">obj-m := hello.o    //hello为你的要编译文件名
+下面的格式很重要--请注意！！！--格式举例子↓
+
+     all:    ----直接敲回车
+             (这里相当于按了tab分隔符)make..........这里会这就这样子
+
+ //注意空格！！！
+ all:
+     make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+ clean:
+     make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean</code></pre>
+<h2 id="3-加载模块程序"><a href="#3-加载模块程序" class="headerlink" title="3 加载模块程序"></a>3 加载模块程序</h2><p>这里，我们在终端输入：make  就能得到hello.ko、hello.o文件<br>注意，如果输入make提示安装插件，必须要装的哦！！具体指令看提示，我懒得找！！<br>PS：这个hello.ko文件很重要<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/21/YbKzVg.png" alt="效果图" class="lazyload"><br>接下来我们准备加载模块了！</p>
+<blockquote>
+<pre><code>指令：sudo insmod hello.ko</code></pre></blockquote>
+<p>输入完这个指令，是不会显示如何东西的。那么我们怎么知道有没有加载成功呢？</p>
+<blockquote>
+<pre><code>指令：lsmod | grep hello （是L不是i哦！！）</code></pre></blockquote>
+<p>我就懒得截图。算了，我还是截图吧。。。。。o(╯□╰)o<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/21/YbKzVg.png" alt="效果图" class="lazyload"></p>
+<h2 id="4-模块输出"><a href="#4-模块输出" class="headerlink" title="4 模块输出"></a>4 模块输出</h2><p>由于网上指令一大堆，也试了，结果都有问题。。。所以，我就懒得去弄，当然我也会提供这些方法出来。<br>感兴趣的话，你也可以去试试！<br>我的指令的话，在终端输入，是这个：</p>
+<blockquote>
+<pre><code>dmesg       //我所使用的
+//网上所使用的指令
+cat syslog | grep hello
+tail -n /var/log/messages</code></pre></blockquote>
+<p>这里没图，具体情况就是，显示的文字在最后面，不用往前面翻！！<br><img data-sizes="auto" data-src="https://s1.ax1x.com/2020/05/21/YbKzVg.png" alt="效果图" class="lazyload"></p>
+<h2 id="5-模块卸载"><a href="#5-模块卸载" class="headerlink" title="5 模块卸载"></a>5 模块卸载</h2><blockquote>
+<pre><code>//必须使用管理员才能卸载
+sudo rmmod hello.ko</code></pre></blockquote>
+<p>同样，不会显示是否成功之类的信息！<br>使用下面代码查看有没有打印出模块函数里面写的信息，代码的情况也一样，具体看上面</p>
+<blockquote>
+<pre><code>dmesg</code></pre></blockquote>
+
+  </article>
+
+  <div class="nexmoe-post-meta">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+    
+    
+</div>
+
+  <div class="nexmoe-post-footer">
+    
+      
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Rain_Saber<br>
+    <strong>本文链接：</strong><a href="http://yoursite.com/2020/05/21/%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%AE%9E%E9%AA%8C-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD/" title="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;21&#x2F;%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%AE%9E%E9%AA%8C-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;21&#x2F;%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%AE%9E%E9%AA%8C-%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD&#x2F;</a><br>
+    
+      <strong>版权声明：</strong> ©2020 Rain_Saber 
+    
+  </div>
+
+
+    
+    <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.0/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
 </section>
-
-<style>
-.nexmoe-archives article > *:first-child {
-    margin-top: 0;
-}
-.nexmoe-archives article > *:last-child {
-    margin-bottom: 0;
-}
-.nexmoe-archives ul {
-    list-style: none;
-    padding-left: 0!important;
-}
-.nexmoe-archives li {
-    position: relative;
-    padding: 10px 0;
-}
-.nexmoe-archives li::before {
-    content: "";
-    width: 14px;
-    height: 14px;
-    background: #ff4e6a;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -2px;
-    margin-right: 11px;
-    border-radius: 100%;
-    border: 3px solid #fff;
-    z-index: 100;
-    position: relative;
-}
-.nexmoe-archives li::after {
-    content: "";
-    height: 100%;
-    width: 2px;
-    background: rgba(255, 78, 106, 0.2);
-    position: absolute;
-    left: 6px;
-    top: 20px;
-}
-.nexmoe-archives li:last-child:after {
-    display: none;
-}
-.nexmoe-archives span {
-    margin-right: 15px;
-}
-</style>
+  </div>
+</div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js,gh/nexmoe/nexmoe.github.io@latest/js/app.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<!--<script src="/js/app.js?v=1590048773494"></script>-->
+<!--<script src="/js/app.js?v=1590048773461"></script>-->
 
 
     <script src="https://cdn.jsdelivr.net/gh/xtaodada/xtaodada.github.io@0.0.2/copy.js"></script>
